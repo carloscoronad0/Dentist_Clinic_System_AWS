@@ -40,7 +40,7 @@ resource "aws_db_instance" "dentist_database" {
   parameter_group_name = "default.mysql8.0"
   skip_final_snapshot  = true
   
-  db_name               = "mydentistdatabase"
+  db_name               = local.db_name
   apply_immediately     = true
   port                  = 3306
   vpc_security_group_ids = [aws_security_group.dentist_database_sg.id]
@@ -48,6 +48,12 @@ resource "aws_db_instance" "dentist_database" {
 }
 
 # Parameter store --------------------------------------------------------------
+
+resource "aws_ssm_parameter" "dentist_db_name" {
+  name  = "/dentist_db/dbName"
+  type  = "String"
+  value = local.db_password
+}
 
 resource "aws_ssm_parameter" "dentist_db_address" {
   name  = "/dentist_db/address"
