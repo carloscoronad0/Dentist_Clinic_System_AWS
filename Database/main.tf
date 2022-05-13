@@ -52,7 +52,7 @@ resource "aws_db_instance" "dentist_database" {
 resource "aws_ssm_parameter" "dentist_db_name" {
   name  = "/dentist_db/dbName"
   type  = "String"
-  value = local.db_password
+  value = local.db_name
 }
 
 resource "aws_ssm_parameter" "dentist_db_address" {
